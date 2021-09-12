@@ -1,0 +1,30 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: k8s-node-collector
+  labels:
+    app: k8s-node-collector
+spec:
+  schedule: "0 3 * * *"
+  successfulJobsHistoryLimit: 0
+  failedJobsHistoryLimit: 0
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: sa-k8s-node-collector
+          containers:
+            - name: k8s-node-collector
+              image: alvarolg/k8s-node-collector:latest
+              imagePullPolicy: IfNotPresent
+              env:
+              - name: PATH_REPORT
+                value: "/reports"
+              volumeMounts:
+                - name: persistent-storage
+                  mountPath: /reports
+          restartPolicy: OnFailure
+          volumes:
+            - name: persistent-storage
+              persistentVolumeClaim:
+                claimName: k8s-node-collector-claim
