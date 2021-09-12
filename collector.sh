@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #Variables
-REPORT_PATH=$1/$(date +%d-%b-%H-%M)
+REPORT_PATH=$1/$(date +%d-%b-%H:%M)
 echo "The reports will be saved in: $REPORT_PATH"
 #Cleaning-up
 if test -f "$REPORT_PATH"; then
