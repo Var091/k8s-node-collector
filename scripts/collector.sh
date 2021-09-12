@@ -24,7 +24,7 @@ metadata:
 spec:
   hostNetwork: true
   nodeName: $node
-  serviceAccountName: alvaro-test
+  serviceAccountName: sa-k8s-node-collector
   containers:
   - image: liubowei/netstat
     command:
